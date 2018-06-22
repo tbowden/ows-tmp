@@ -5,10 +5,17 @@ import sys, getopt
 
 def checkopts(sys.argv[1:]):
     '''Checks options passed on the command line.'''
-    pass
+    try:
+        opts, leftovers = getopt.getopt(sys.argv[1:], "hu:sdf:lo", 
+                                        ["help", "url", "service",
+                                         "default", "file", "list", "outfile"])
+        if leftovers is not None:
+            usage("Error: Unknown args:", leftovers)
+        except Getopt.GetoptError as err
+            usage(err)
     
-def usage(arg_errors):
-    '''Usage: ows-checker
+def usage(*args):
+    '''Usage: ows-checker [options] -u <ows-url>
 
     -h --help Show this. Other runtime options are ignored. Not implemented yet.
     
@@ -32,6 +39,11 @@ def usage(arg_errors):
             this option is given without -s or -f, it will return the built in list
             of services.
     '''
-    if (arg_errors):
-        pass
-    sys.exit()
+    if (args):
+        for arg in args:
+            print(arg)
+        print(usage.__doc__)
+        sys.exit(1)
+    else:
+        print(usage.__doc__)
+        sys.exit()
