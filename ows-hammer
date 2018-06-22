@@ -1,0 +1,37 @@
+#!/usr/bin/python
+
+from owslib.wms import WebMapService
+import sys, getopt
+
+def checkopts(sys.argv[1:]):
+    '''Checks options passed on the command line.'''
+    pass
+    
+def usage(arg_errors):
+    '''Usage: ows-checker
+
+    -h --help Show this. Other runtime options are ignored. Not implemented yet.
+    
+    -u --url Required. Root URL of the ows service to be checked.
+    
+    -s --service [service_name.php] Name of service to be checked. Can be passed 
+            multiple times. If used with -d, this service is added to the the 
+            list of default services to be checked.
+            
+    -d --default Checks the default list of services. If no other services are 
+            specified with -s or -f then this option is assumed, otherwise it is 
+            ignored.
+            
+    -f --file [filename] File containing list of services to check. Format is one
+            service per line in the form service-name.php. A leading - in front of 
+            the file name means the service won't be checked. This only has an 
+            effect if it is used with -d and the service in question is in the
+            default list of services.
+            
+    -l --list List the services that would be checked, but don't check them. If 
+            this option is given without -s or -f, it will return the built in list
+            of services.
+    '''
+    if (arg_errors):
+        pass
+    sys.exit()
