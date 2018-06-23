@@ -19,15 +19,19 @@ RUN gosu nobody true
 RUN pip3 install virtualenvwrapper
 
 RUN adduser --gecos webdev --disabled-password webdev
-RUN mkdir -p /usr/local/srss/python/virtualenvs /usr/local/srss/python/projects \
-    && chown -R webdev /usr/local/srss
+RUN mkdir -p /usr/local/srss/python/virtualenvs /usr/local/srss/python/projects 
+
 # set so virtualenvwrapper can find python3
 ENV VIRTUALENVWRAPPER_PYTHON /usr/bin/python3
 # virtualevwrapper variables
 ENV WORKON_HOME /usr/local/srss/python/virtualenvs
 ENV PROJECT_HOME /usr/local/srss/python/projects
 
-COPY ./requirements.txt /usr/local/srss/python/projects
+COPY ./include/* /usr/local/srss/python/projects/
+RUN chown -R webdev /usr/local/srss
+
+USER webdev
+WORKDIR /usr/local/srss/python/projects
 
 RUN ["/bin/bash", "-ic", "mkproject ows_hammer && \
     pip install -r requirements.txt"]
