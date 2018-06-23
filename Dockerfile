@@ -14,3 +14,22 @@ RUN DEBIAN_FRONTEND=noninteractive \
     
 RUN gosu nobody true
 
+# RUN pip3 install setuptools wheel
+
+RUN pip3 install virtualenvwrapper
+
+RUN adduser --gecos webdev --disabled-password webdev
+RUN mkdir -p /usr/local/srss/python/virtualenvs /usr/local/srss/python/projects \
+    && chown -R webdev /usr/local/srss
+# set so virtualenvwrapper can find python3
+ENV VIRTUALENVWRAPPER_PYTHON /usr/bin/python3
+# virtualevwrapper variables
+ENV WORKON_HOME /usr/local/srss/python/virtualenvs
+ENV PROJECT_HOME /usr/local/srss/python/projects
+
+COPY ./requirements.txt /usr/local/srss/python/projects
+
+RUN ["/bin/bash", "-ic", "mkproject ows_hammer && \
+    pip install -r requirements.txt"]
+
+
