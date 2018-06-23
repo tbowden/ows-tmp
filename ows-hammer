@@ -3,7 +3,7 @@
 from owslib.wms import WebMapService
 import sys, getopt
 
-def checkopts(sys.argv[1:]):
+def checkopts():
     '''Checks options passed on the command line.'''
     try:
         opts, leftovers = getopt.getopt(sys.argv[1:], "hu:sdf:lo", 
@@ -11,8 +11,8 @@ def checkopts(sys.argv[1:]):
                                          "default", "file", "list", "outfile"])
         if leftovers is not None:
             usage("Error: Unknown args:", leftovers)
-        except Getopt.GetoptError as err
-            usage(err)
+    except Getopt.GetoptError as err:
+        usage(err)
     
 def usage(*args):
     '''Usage: ows-checker [options] -u <ows-url>
@@ -47,3 +47,10 @@ def usage(*args):
     else:
         print(usage.__doc__)
         sys.exit()
+
+    def main():
+        print(usage.__doc__)
+
+
+if __name__ == "__main__":
+    main()
